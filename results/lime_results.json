@@ -1,0 +1,237 @@
+[
+  {
+    "text": "Donald Trump is going to get us in a war, and based on his rhetoric, it s going to be nuclear. Multi",
+    "prediction": "FAKE",
+    "confidence": 0.9999802112579346,
+    "top_words": [
+      [
+        "going",
+        -0.0009007328552838177
+      ],
+      [
+        "diplomacy",
+        -0.00047292378973916614
+      ],
+      [
+        "a",
+        -0.00043378486941419146
+      ],
+      [
+        "Korea",
+        -0.00039570330024107963
+      ],
+      [
+        "has",
+        -0.0003262676248128403
+      ],
+      [
+        "rage",
+        -0.000268992916308244
+      ],
+      [
+        "fire",
+        -0.0001914740278327449
+      ],
+      [
+        "fury",
+        -0.00016461045569301683
+      ],
+      [
+        "BREAKING",
+        -2.2142912612065422e-05
+      ],
+      [
+        "if",
+        -6.109489068240527e-06
+      ]
+    ]
+  },
+  {
+    "text": "ZAKHO, Iraq (Reuters) - More than three weeks after Iraq s Kurds voted for independence, it s busine",
+    "prediction": "REAL",
+    "confidence": 0.9999924898147583,
+    "top_words": [
+      [
+        "be",
+        5.642123573172325e-06
+      ],
+      [
+        "foreign",
+        3.7249289712891845e-06
+      ],
+      [
+        "stares",
+        3.707838812964574e-06
+      ],
+      [
+        "up",
+        2.0704507215940083e-06
+      ],
+      [
+        "from",
+        -1.7136214781994474e-06
+      ],
+      [
+        "since",
+        1.6012686023522777e-06
+      ],
+      [
+        "tread",
+        3.9156501444024217e-07
+      ],
+      [
+        "Rushdi",
+        2.703050489228491e-07
+      ],
+      [
+        "Sept",
+        -2.70168004900697e-07
+      ],
+      [
+        "quoted",
+        9.063020892340474e-08
+      ]
+    ]
+  },
+  {
+    "text": "WASHINGTON (Reuters) - President Donald Trump will sign two executive orders on Wednesday including ",
+    "prediction": "REAL",
+    "confidence": 0.9999933242797852,
+    "top_words": [
+      [
+        "WASHINGTON",
+        1.5199761684616827e-06
+      ],
+      [
+        "porous",
+        -6.874860522242974e-07
+      ],
+      [
+        "intent",
+        5.299284548544754e-07
+      ],
+      [
+        "Trump",
+        4.5290442652317016e-07
+      ],
+      [
+        "sign",
+        4.3851011729678746e-07
+      ],
+      [
+        "more",
+        4.041767689418539e-07
+      ],
+      [
+        "securing",
+        2.7304945551220136e-07
+      ],
+      [
+        "previous",
+        -1.3332511795216327e-07
+      ],
+      [
+        "one",
+        -1.1863407810730009e-07
+      ],
+      [
+        "He",
+        -1.1121237211949342e-07
+      ]
+    ]
+  },
+  {
+    "text": "BRUSSELS (Reuters) - U.S. Vice President Mike Pence said on Monday he was \u201cdisappointed\u201d the former ",
+    "prediction": "REAL",
+    "confidence": 0.9999932050704956,
+    "top_words": [
+      [
+        "headquarters",
+        2.4160723493241023e-06
+      ],
+      [
+        "in",
+        1.9195966405889195e-06
+      ],
+      [
+        "U",
+        1.718498726333197e-06
+      ],
+      [
+        "facts",
+        -1.1117642440194745e-06
+      ],
+      [
+        "on",
+        1.0325856654492492e-06
+      ],
+      [
+        "I",
+        -9.946533105235244e-07
+      ],
+      [
+        "dismiss",
+        -9.159187097549458e-07
+      ],
+      [
+        "learn",
+        4.304188948193469e-07
+      ],
+      [
+        "Monday",
+        -4.2725699465604716e-07
+      ],
+      [
+        "have",
+        3.20983646980065e-07
+      ]
+    ]
+  },
+  {
+    "text": "GENEVA (Reuters) - In a thinly veiled reference to U.S. President Donald Trump, the top U.N. human r",
+    "prediction": "REAL",
+    "confidence": 0.9999933242797852,
+    "top_words": [
+      [
+        "in",
+        2.397853175221304e-06
+      ],
+      [
+        "Reuters",
+        2.2150844291001277e-06
+      ],
+      [
+        "Muslim",
+        -1.694590296171962e-06
+      ],
+      [
+        "retweeted",
+        1.0626179265481038e-06
+      ],
+      [
+        "their",
+        1.02622270216995e-06
+      ],
+      [
+        "of",
+        6.391102746091526e-07
+      ],
+      [
+        "media",
+        5.494452362014917e-07
+      ],
+      [
+        "racist",
+        3.395689270212638e-07
+      ],
+      [
+        "on",
+        1.8771257424610518e-07
+      ],
+      [
+        "British",
+        1.696360652294708e-07
+      ]
+    ]
+  }
+]
