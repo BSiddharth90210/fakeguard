@@ -101,9 +101,9 @@ Interactive docs at `http://127.0.0.1:8000/docs`
 
 ## Phases Completed
 
-- [x] Phase 1 — Data acquisition and EDA
-- [x] Phase 2 — Baseline ML models
-- [x] Phase 3 — BERT fine-tuning
-- [x] Phase 4 — Explainability (LIME/SHAP)
-- [x] Phase 5 — FastAPI backend
-- [x] Phase 6 — Benchmarking and polish
+Phase 1 — Data acquisition and EDA
+Phase 2 — Baseline ML models
+Phase 3 — BERT fine-tuning
+  Phase 4 — Explainability (LIME/SHAP)
+  Phase 5 — FastAPI backend
+  Phase 6 — Benchmarking and polish
