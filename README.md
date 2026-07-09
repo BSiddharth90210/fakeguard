@@ -1,102 +1,109 @@
-\# FakeGuard 🛡️
+# FakeGuard — AI-Powered Fake News Detection System
 
-\### AI-Powered Fake News Detection System
+A machine learning system that detects fake news using NLP and fine-tuned BERT, with a FastAPI backend, PostgreSQL prediction history, and LIME/SHAP explainability.
 
+---
 
-
-A machine learning system that detects fake news using NLP and BERT,
-
-with a FastAPI backend and PostgreSQL database.
-
-
-
-\## Results
+## Results
 
 | Model | Accuracy | F1 Score |
-
 |---|---|---|
+| Logistic Regression (TF-IDF) | 98.80% | 98.74% |
+| XGBoost (TF-IDF) | 99.80% | 99.79% |
+| BERT (fine-tuned) | **99.98%** | **99.98%** |
 
-| Logistic Regression | 98.80% | 98.74% |
+**API Performance:** 56ms average response latency (warm requests)
 
-| XGBoost | 99.80% | 99.79% |
+---
 
-| BERT (fine-tuned) | 99.98% | 99.98% |
+## Tech Stack
 
-| API Latency | 56ms avg | ✅ Sub-200ms |
+| Layer | Tools |
+|---|---|
+| Machine Learning | Scikit-learn, XGBoost |
+| Deep Learning | HuggingFace Transformers, PyTorch (CUDA) |
+| Explainability | LIME, SHAP |
+| Backend | FastAPI, Uvicorn |
+| Database | PostgreSQL, SQLAlchemy |
+| Hardware | NVIDIA RTX 3050 Laptop GPU |
 
+---
 
-
-\## Tech Stack
-
-\- \*\*ML\*\*: Scikit-learn, XGBoost, HuggingFace Transformers (BERT)
-
-\- \*\*Explainability\*\*: LIME, SHAP
-
-\- \*\*Backend\*\*: FastAPI, Uvicorn
-
-\- \*\*Database\*\*: PostgreSQL, SQLAlchemy
-
-\- \*\*Hardware\*\*: NVIDIA RTX 3050 (CUDA)
-
-
-
-\## API Endpoints
+## API Endpoints
 
 | Endpoint | Method | Description |
-
 |---|---|---|
+| `/` | GET | Health check |
+| `/predict` | POST | Classify a news article as fake or real |
+| `/history` | GET | Retrieve the last 10 predictions from the database |
 
-| / | GET | Health check |
+---
 
-| /predict | POST | Classify a news article |
-
-| /history | GET | View past predictions |
-
-
-
-\## Project Structure
-
-\- phase1.py — Data acquisition and EDA
-
-\- phase2.py — Baseline ML models (TF-IDF + LR, XGBoost)
-
-\- phase3.py — BERT fine-tuning
-
-\- phase4.py — LIME/SHAP explainability
-
-\- phase5.py — FastAPI backend
-
-\- phase6.py — Benchmarking
-
-
-
-\## Setup
-
-```bash
-
-python -m venv fakeguard-env
-
-fakeguard-env\\Scripts\\activate
-
-pip install -r requirements.txt
-
-uvicorn phase5:app --reload
+## Project Structure
 
 ```
+fakeguard/
+├── data/               # Train, validation, and test splits
+├── models/             # Saved ML and BERT models
+├── results/            # LIME explainability outputs
+├── phase1.py           # Data acquisition and EDA
+├── phase2.py           # Baseline ML models (TF-IDF + LR, XGBoost)
+├── phase3.py           # BERT fine-tuning on GPU
+├── phase4.py           # LIME and SHAP explainability
+├── phase5.py           # FastAPI backend with PostgreSQL
+├── phase6.py           # Benchmarking and evaluation
+└── requirements.txt    # Project dependencies
+```
 
+---
 
+## Setup
 
-\## Phases
+**1. Clone the repository**
+```bash
+git clone https://github.com/BSiddharth90210/fakeguard.git
+cd fakeguard
+```
 
-\- \[x] Phase 1 - Data Setup
+**2. Create and activate virtual environment**
+```bash
+python -m venv fakeguard-env
+fakeguard-env\Scripts\activate
+```
 
-\- \[x] Phase 2 - Baseline Models
+**3. Install dependencies**
+```bash
+pip install -r requirements.txt
+```
 
-\- \[x] Phase 3 - BERT Fine-tuning
+**4. Set up PostgreSQL**
 
-\- \[x] Phase 4 - Explainability
+Create a database named `fakeguard` and update the `DB_URL` in `phase5.py` with your credentials.
 
-\- \[x] Phase 5 - FastAPI Backend
+**5. Run the API**
+```bash
+uvicorn phase5:app --reload
+```
 
-\- \[x] Phase 6 - Benchmarking
+The API will be available at `http://127.0.0.1:8000`
+Interactive docs at `http://127.0.0.1:8000/docs`
 
+---
+
+## Dataset
+
+[Fake and Real News Dataset](https://www.kaggle.com/datasets/clmentbisaillon/fake-and-real-news-dataset) — Kaggle
+
+- 44,898 labeled news articles (52% fake, 48% real)
+- Split: 35,000 train / 5,000 validation / 4,898 test
+
+---
+
+## Phases Completed
+
+- [x] Phase 1 — Data acquisition and EDA
+- [x] Phase 2 — Baseline ML models
+- [x] Phase 3 — BERT fine-tuning
+- [x] Phase 4 — Explainability (LIME/SHAP)
+- [x] Phase 5 — FastAPI backend
+- [x] Phase 6 — Benchmarking and polish
