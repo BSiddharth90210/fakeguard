@@ -15,7 +15,7 @@ import re
 def clean_text(text):
     text = text.lower()                          # lowercase everything
     text = re.sub(r'https?://\S+', '', text)     # remove URLs
-    text = re.sub(r'[^a-zA-Z\s]', '', text)     # remove punctuation & numbers
+    text = re.sub(r'[^a-zA-Z\s]', '', text)      # remove punctuation & numbers
     text = text.strip()                          # remove extra spaces
     return text
 
