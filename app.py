@@ -180,6 +180,22 @@ def stats():
         "avg_confidence": avg_conf
     }
 
+# ─── Gradio Wrapper for Hugging Face Spaces ───────────────────
+import gradio as gr
+
+def dummy_gradio_fn(text):
+    return "The FakeGuard backend is running. Please use the React frontend or /docs for API details."
+
+demo = gr.Interface(
+    fn=dummy_gradio_fn,
+    inputs="text",
+    outputs="text",
+    title="FakeGuard API Status"
+)
+
+# Mount the Gradio app onto the FastAPI app
+app = gr.mount_gradio_app(app, demo, path="/gradio")
+
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run("app:app", host="0.0.0.0", port=8000, reload=False)
