@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FakeGuard — AI-Powered Fake News Detection</title>
+  <meta name="description" content="FakeGuard uses state-of-the-art BERT and machine learning to detect fake news with 99.98% accuracy." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════ NAVBAR ═══════════════════════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-brand">
+    <div class="nav-logo">
+      <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
+        <circle cx="16" cy="16" r="16" fill="url(#logoGrad)"/>
+        <path d="M10 12h12M10 16h8M10 20h10" stroke="white" stroke-width="2" stroke-linecap="round"/>
+        <circle cx="24" cy="22" r="5" fill="#ff4757" stroke="white" stroke-width="1.5"/>
+        <path d="M22 22l1.5 1.5L26 20" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        <defs>
+          <linearGradient id="logoGrad" x1="0" y1="0" x2="32" y2="32">
+            <stop offset="0%" stop-color="#6C63FF"/>
+            <stop offset="100%" stop-color="#2D9CDB"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <span>FakeGuard</span>
+    </div>
+    <div class="nav-badge" id="statusBadge">
+      <span class="dot"></span>
+      <span id="statusText">Connecting...</span>
+    </div>
+  </div>
+  <div class="nav-links">
+    <a href="#detect" class="nav-link active">Detect</a>
+    <a href="#how-it-works" class="nav-link">How It Works</a>
+    <a href="#history" class="nav-link">History</a>
+    <a href="#explainability" class="nav-link">Explainability</a>
+  </div>
+</nav>
+
+<!-- ═══════════════════════ HERO ══════════════════════════════ -->
+<section class="hero" id="detect">
+  <div class="hero-bg">
+    <div class="hero-orb orb-1"></div>
+    <div class="hero-orb orb-2"></div>
+    <div class="hero-orb orb-3"></div>
+    <div class="grid-lines"></div>
+  </div>
+
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span>🧠 Powered by BERT · 99.98% Accuracy</span>
+    </div>
+    <h1 class="hero-title">
+      Detect Fake News<br/>
+      <span class="gradient-text">with AI Precision</span>
+    </h1>
+    <p class="hero-subtitle">
+      FakeGuard combines fine-tuned BERT, XGBoost, and Logistic Regression
+      with LIME explainability to analyze news articles in milliseconds.
+    </p>
+
+    <!-- ── Stats Row ── -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <span class="stat-val">99.98%</span>
+        <span class="stat-label">BERT Accuracy</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-val">56ms</span>
+        <span class="stat-label">Avg Latency</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-val">44,898</span>
+        <span class="stat-label">Articles Trained</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-val" id="livePred">0</span>
+        <span class="stat-label">Live Predictions</span>
+      </div>
+    </div>
+
+    <!-- ── Detection Card ── -->
+    <div class="detection-card" id="detectionCard">
+      <div class="card-header">
+        <h2 class="card-title">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+          Analyze Article
+        </h2>
+        <div class="model-selector">
+          <label>Model:</label>
+          <div class="model-tabs">
+            <button class="model-tab active" data-model="bert" id="tab-bert">BERT</button>
+            <button class="model-tab" data-model="lr" id="tab-lr">LR</button>
+            <button class="model-tab" data-model="xgb" id="tab-xgb">XGBoost</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="input-area">
+        <textarea
+          id="articleInput"
+          class="article-textarea"
+          placeholder="Paste a news article or headline here...&#10;&#10;Example: 'Scientists at MIT have confirmed that 5G towers are responsible for spreading COVID-19...'"
+          rows="6"
+        ></textarea>
+        <div class="char-count"><span id="charCount">0</span> characters</div>
+      </div>
+
+      <div class="quick-examples">
+        <span class="examples-label">Try:</span>
+        <button class="example-btn" data-text="WASHINGTON (Reuters) - President Donald Trump signed two executive orders on Wednesday, including one directing federal agencies to use only domestic steel in U.S. infrastructure projects.">Reuters Article</button>
+        <button class="example-btn" data-text="BREAKING: Scientists have discovered that drinking bleach cures all known diseases. The government is hiding this miracle cure to protect Big Pharma profits!">Suspicious Headline</button>
+        <button class="example-btn" data-text="Federal Reserve raises interest rates by 0.25% as inflation continues to ease, with officials signaling potential rate cuts in 2025 if economic conditions improve.">Financial News</button>
+        <button class="example-btn" data-text="SHOCKING: NASA admits the moon is actually a hologram projected by secret lizard people who control the world's governments. Anonymous source confirms alien invasion planned for 2026.">Conspiracy Theory</button>
+      </div>
+
+      <button class="analyze-btn" id="analyzeBtn">
+        <span class="btn-text">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+          Analyze with AI
+        </span>
+        <span class="btn-loader" style="display:none;">
+          <span class="spinner"></span> Analyzing...
+        </span>
+      </button>
+    </div>
+
+    <!-- ── Result Panel ── -->
+    <div class="result-panel hidden" id="resultPanel">
+      <div class="result-header">
+        <div class="verdict-badge" id="verdictBadge">
+          <span class="verdict-icon" id="verdictIcon"></span>
+          <span class="verdict-text" id="verdictText"></span>
+        </div>
+        <div class="model-used" id="modelUsed"></div>
+      </div>
+
+      <div class="result-body">
+        <div class="confidence-section">
+          <div class="conf-label">
+            <span>Confidence</span>
+            <span class="conf-value" id="confValue">0%</span>
+          </div>
+          <div class="conf-bar-track">
+            <div class="conf-bar" id="confBar"></div>
+          </div>
+        </div>
+
+        <div class="prob-bars">
+          <div class="prob-item">
+            <div class="prob-label">
+              <span class="prob-dot fake-dot"></span>
+              <span>Fake Probability</span>
+              <span class="prob-pct" id="fakeProb">0%</span>
+            </div>
+            <div class="prob-track">
+              <div class="prob-fill fake-fill" id="fakeBar"></div>
+            </div>
+          </div>
+          <div class="prob-item">
+            <div class="prob-label">
+              <span class="prob-dot real-dot"></span>
+              <span>Real Probability</span>
+              <span class="prob-pct" id="realProb">0%</span>
+            </div>
+            <div class="prob-track">
+              <div class="prob-fill real-fill" id="realBar"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="result-footer">
+        <span id="resultTimestamp"></span>
+        <button class="try-another-btn" id="tryAnother">Try Another →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ HOW IT WORKS ═════════════════════ -->
+<section class="how-section" id="how-it-works">
+  <div class="section-container">
+    <div class="section-tag">Architecture</div>
+    <h2 class="section-title">How FakeGuard Works</h2>
+    <p class="section-subtitle">A multi-stage ML pipeline from raw text to explainable predictions</p>
+
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <div class="step-icon step-icon-1">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+        </div>
+        <h3>1. Text Input</h3>
+        <p>Raw news article text is received via the FastAPI endpoint</p>
+        <div class="step-tag">FastAPI · Pydantic</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+
+      <div class="pipeline-step">
+        <div class="step-icon step-icon-2">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>2. Preprocessing</h3>
+        <p>Lowercasing, URL removal, punctuation stripping</p>
+        <div class="step-tag">Regex · NLP</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+
+      <div class="pipeline-step">
+        <div class="step-icon step-icon-3">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M9 9h6M9 12h6M9 15h4"/></svg>
+        </div>
+        <h3>3. BERT Tokenization</h3>
+        <p>HuggingFace AutoTokenizer with 128-token max length</p>
+        <div class="step-tag">Transformers · PyTorch</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+
+      <div class="pipeline-step">
+        <div class="step-icon step-icon-4">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+        </div>
+        <h3>4. Inference</h3>
+        <p>Fine-tuned BERT classifies as FAKE or REAL with softmax probabilities</p>
+        <div class="step-tag">BERT · 99.98% Acc</div>
+      </div>
+      <div class="pipeline-arrow">→</div>
+
+      <div class="pipeline-step">
+        <div class="step-icon step-icon-5">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 20h20M6 20V10M12 20V4M18 20v-6"/></svg>
+        </div>
+        <h3>5. Explainability</h3>
+        <p>LIME highlights which words drove the prediction</p>
+        <div class="step-tag">LIME · SHAP</div>
+      </div>
+    </div>
+
+    <!-- Model Comparison Table -->
+    <div class="model-table-wrapper">
+      <h3 class="table-title">Model Performance Comparison</h3>
+      <div class="model-table">
+        <div class="table-header">
+          <div class="th">Model</div>
+          <div class="th">Algorithm</div>
+          <div class="th">Accuracy</div>
+          <div class="th">F1 Score</div>
+          <div class="th">Features</div>
+        </div>
+        <div class="table-row">
+          <div class="td model-name">Logistic Regression</div>
+          <div class="td">TF-IDF + LR</div>
+          <div class="td acc-cell"><span class="acc-bar" style="width:98.80%"></span>98.80%</div>
+          <div class="td">98.74%</div>
+          <div class="td tag-cell"><span class="tag">50k features</span></div>
+        </div>
+        <div class="table-row">
+          <div class="td model-name">XGBoost</div>
+          <div class="td">TF-IDF + XGB</div>
+          <div class="td acc-cell"><span class="acc-bar" style="width:99.80%"></span>99.80%</div>
+          <div class="td">99.79%</div>
+          <div class="td tag-cell"><span class="tag">100 trees</span></div>
+        </div>
+        <div class="table-row best-row">
+          <div class="td model-name">
+            BERT 
+            <span class="best-tag">BEST</span>
+          </div>
+          <div class="td">Fine-tuned DistilBERT</div>
+          <div class="td acc-cell"><span class="acc-bar gold" style="width:99.98%"></span>99.98%</div>
+          <div class="td">99.98%</div>
+          <div class="td tag-cell"><span class="tag">GPU · CUDA</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ HISTORY ══════════════════════════ -->
+<section class="history-section" id="history">
+  <div class="section-container">
+    <div class="section-tag">Live Data</div>
+    <h2 class="section-title">Prediction History</h2>
+    <p class="section-subtitle">Recent analyses from this session</p>
+
+    <div class="history-stats" id="historyStats">
+      <div class="hist-stat">
+        <span class="hist-num" id="histTotal">0</span>
+        <span class="hist-label">Total</span>
+      </div>
+      <div class="hist-stat fake-stat">
+        <span class="hist-num" id="histFake">0</span>
+        <span class="hist-label">Fake</span>
+      </div>
+      <div class="hist-stat real-stat">
+        <span class="hist-num" id="histReal">0</span>
+        <span class="hist-label">Real</span>
+      </div>
+      <div class="hist-stat">
+        <span class="hist-num" id="histConf">-</span>
+        <span class="hist-label">Avg Confidence</span>
+      </div>
+    </div>
+
+    <div class="history-list" id="historyList">
+      <div class="empty-history">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.4"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+        <p>No predictions yet. Try the analyzer above!</p>
+      </div>
+    </div>
+
+    <button class="refresh-btn" id="refreshHistory">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><polyline points="1 20 1 14 7 14"/><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"/></svg>
+      Refresh
+    </button>
+  </div>
+</section>
+
+<!-- ═══════════════════════ EXPLAINABILITY ═══════════════════ -->
+<section class="lime-section" id="explainability">
+  <div class="section-container">
+    <div class="section-tag">LIME Explainability</div>
+    <h2 class="section-title">Why Did the Model Decide This?</h2>
+    <p class="section-subtitle">LIME (Local Interpretable Model-agnostic Explanations) reveals which words most influenced the prediction</p>
+
+    <div class="lime-cards" id="limeCards">
+      <div class="lime-loading">Loading explainability results...</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════ FOOTER ════════════════════════════ -->
+<footer class="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <span class="footer-logo">FakeGuard</span>
+      <p>AI-Powered Fake News Detection using BERT &amp; FastAPI</p>
+    </div>
+    <div class="footer-tech">
+      <span class="tech-tag">HuggingFace</span>
+      <span class="tech-tag">PyTorch</span>
+      <span class="tech-tag">FastAPI</span>
+      <span class="tech-tag">XGBoost</span>
+      <span class="tech-tag">LIME</span>
+      <span class="tech-tag">SHAP</span>
+      <span class="tech-tag">Scikit-learn</span>
+    </div>
+    <p class="footer-note">Dataset: Kaggle Fake and Real News · 44,898 articles · RTX 3050 GPU</p>
+  </div>
+</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
